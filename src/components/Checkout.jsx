@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductDetails from "./ProductDetails";
 import { GB_CURRENCY } from "../utils/constants";
-import { removeFromCart } from "../redux/cartSlice";
+import { removeFromCart, decrementInCart, incrementInCart } from "../redux/cartSlice";
 
 function Checkout() {
   const products = useSelector((state) => state.cart.products);
@@ -38,16 +38,16 @@ function Checkout() {
                           </Link>
                         </div>
                         <div>
-                          <button className="text-sm xl:text-base font-semibold rounded text-blue-500 mt-2 mb-1" onClick={()=> dispatch(removeFromCart(product.id))}>Delete</button>
+                          <button className="text-sm xl:text-base font-semibold rounded text-blue-500 mt-2 mb-1 cursor-pointer" onClick={()=> dispatch(removeFromCart(product.id))}>Delete</button>
                         </div>
                         <div className="grid grid-cols-3 w-20 text-center">
-                          <div className="text-xl xl:text-2xl bg-gray-400 rounded">
+                          <div className="text-xl xl:text-2xl bg-gray-400 rounded" onClick={() => dispatch(decrementInCart(product.id))}>
                             -
                           </div>
                           <div className="text-lg xl:text-xl bg-gray-200">
                             {product.quantity}
                           </div>
-                          <div className="text-xl xl:text-2xl bg-gray-400 rounded">
+                          <div className="text-xl xl:text-2xl bg-gray-400 rounded" onClick={() => dispatch(incrementInCart(product.id))}>
                             +
                           </div>
                         </div>
